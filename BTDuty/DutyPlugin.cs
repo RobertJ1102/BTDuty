@@ -354,6 +354,16 @@ namespace BTDuty
             return;
         }
 
+        /// <summary>
+        /// Returns true if the player with the given Steam ID is currently on staff duty.
+        /// Exposed as a stable public API so other plugins (e.g. teleportation) can guard
+        /// player-facing actions without reaching into internal state.
+        /// </summary>
+        public static bool IsOnDuty(CSteamID steamID)
+        {
+            return Instance?.onDuty != null && Instance.onDuty.ContainsKey(steamID);
+        }
+
         public IEnumerator ActiveDutySender(float time)
         {
             while (DutyPlugin.Instance.Configuration.Instance.ActiveDutyList.Enabled)
